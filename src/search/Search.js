@@ -1,7 +1,24 @@
-import React, { PureComponent } from 'react'
+import React, { Component } from 'react'
 import './Search.css';
+import { getAllState } from './apiSearch';
 
-export default class Search extends PureComponent {
+export default class Search extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      listState: [],
+      error: '',
+    }
+  }
+
+  async componentWillMount() {
+    const allState = await getAllState();
+    this.setState({
+      listState: allState.data,
+      error: allState.error,
+    })
+  }
+
   render() {
     return (
       <form
@@ -38,10 +55,10 @@ export default class Search extends PureComponent {
               value=""
               selected>Selecione um estado
             </option>
-            {this.props.states.map((state) => {
+            {this.state.listState.map((state) => {
               return (
                 <option
-                  value={state.name}
+                  value={state.nome}
                 >
                 {state.uf}
                 </option>
@@ -59,6 +76,6 @@ export default class Search extends PureComponent {
           </button>
         </div>
       </form>
-    )
+    );
   }
 }

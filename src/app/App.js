@@ -5,7 +5,7 @@ import Header from '../header/Header';
 import Search from '../search/Search';
 import Cities from '../cities/Cities';
 
-class App extends Component {
+class App extends Component {  
   render() {
     return (
       <div className="App">

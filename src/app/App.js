@@ -5,8 +5,15 @@ import Header from '../header/Header';
 import Search from '../search/Search';
 import Cities from '../cities/Cities';
 
-import { getAllState } from '../search/apiSearch';
+import {
+  getAllState,
+  showPoint,
+} from '../search/apiSearch';
 import apiCities from '../cities/apiCities';
+
+const searchCities = (search) => {
+  console.log(search);
+} 
 
 class App extends Component {
   constructor(props) {
@@ -20,7 +27,7 @@ class App extends Component {
 
   componentDidMount() {
     this._loadingListState();
-    // this._loadingListCities();
+    this._loadingListCities();
   }
   
   async _loadingListState() {
@@ -52,11 +59,12 @@ class App extends Component {
               Nome: item.citySearch,
               Estado: item.stateSearch,
             };
-            console.log(search);
+            searchCities(search);
           }}
         />
         <Cities
           cities={this.state.cities}
+          showPoint={(search) => showPoint(search)}
         />
       </div>
     );

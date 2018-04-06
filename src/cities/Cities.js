@@ -22,7 +22,7 @@ export default class Cities extends PureComponent {
                 <td>{city.Nome}</td>
                 <td>
                   <button
-                    onClick={() => alert('Pontuação '+city.id)}
+                    onClick={() => this.props.showPoint({ Nome: city.Nome, Estado: city.Estado})}
                   > Ver pontos </button>
                 </td>
               </tr>

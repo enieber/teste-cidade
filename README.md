@@ -10,6 +10,6 @@ Este projeto é um teste tecnico de reactjs
 
 - [ ] pesquisar cidade
 
-- [x] mostrar pontuação da cidade
+- [ ] mostrar pontuação da cidade
 
 - [x] fazer deploy

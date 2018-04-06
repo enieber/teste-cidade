@@ -1,24 +1,7 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import './Search.css';
-import { getAllState } from './apiSearch';
 
-export default class Search extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      listState: [],
-      error: '',
-    }
-  }
-
-  async componentWillMount() {
-    const allState = await getAllState();
-    this.setState({
-      listState: allState.data,
-      error: allState.error,
-    })
-  }
-
+export default class Search extends PureComponent {
   render() {
     return (
       <form
@@ -55,7 +38,7 @@ export default class Search extends Component {
               value=""
               selected>Selecione um estado
             </option>
-            {this.state.listState.map((state) => {
+            {this.props.listState.map((state) => {
               return (
                 <option
                   value={state.nome}

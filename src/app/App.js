@@ -5,7 +5,42 @@ import Header from '../header/Header';
 import Search from '../search/Search';
 import Cities from '../cities/Cities';
 
-class App extends Component {  
+import { getAllState } from '../search/apiSearch';
+import apiCities from '../cities/apiCities';
+
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      cities: [],
+      listState: [],
+      error: '',
+    }
+  }
+
+  componentDidMount() {
+    Promise.all([
+      this._loadingListState(),
+      this._loadingListCities(),
+    ]);
+  }
+  
+  async _loadingListState() {
+    const allState = await getAllState();
+    this.setState({
+      listState: allState.data,
+      error: allState.error,
+    })
+  }
+
+  async _loadingListCities() {
+    const allCities = await apiCities();
+    this.setState({
+      cities: allCities.data,
+      error: allCities.error,
+    })
+  }
+
   render() {
     return (
       <div className="App">
@@ -13,20 +48,10 @@ class App extends Component {
           title="Pontuação de Cidades"
         />
         <Search
-          states={[{
-            name: 'Maranhão', uf: 'MA'
-          }]}
+          listState={this.state.listState}
         />
         <Cities
-          list={
-            [
-              {
-                id: 1,
-                name: 'Imperatris',
-                uf: 'MA',
-              }
-            ]
-          }
+          cities={this.state.cities}
         />
       </div>
     );

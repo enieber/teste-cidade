@@ -1,24 +1,7 @@
-import React, { Component } from 'react';
-import apiCities from './apiCities';
+import React, { PureComponent } from 'react';
 import './Cities.css';
 
-export default class Cities extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      cities: [],
-      error: '',
-    }
-  }
-  async componentWillMount() {
-    const allCities = await apiCities();
-    console.log(allCities);
-    this.setState({
-      cities: allCities.data,
-      error: allCities.error,
-    })
-  }
-
+export default class Cities extends PureComponent {
   render() {
     return (
       <div
@@ -32,7 +15,7 @@ export default class Cities extends Component {
             <th>Cidade</th>
             <th>Pontuação</th>
           </tr>
-          {this.state.cities.map((city) => {
+          {this.props.cities.map((city) => {
             return (
               <tr>
                 <td>{city.Estado}</td>

@@ -19,10 +19,8 @@ class App extends Component {
   }
 
   componentDidMount() {
-    Promise.all([
-      this._loadingListState(),
-      this._loadingListCities(),
-    ]);
+    this._loadingListState();
+    // this._loadingListCities();
   }
   
   async _loadingListState() {
@@ -49,6 +47,13 @@ class App extends Component {
         />
         <Search
           listState={this.state.listState}
+          searchCities={(item) => {
+            const search = {
+              Nome: item.citySearch,
+              Estado: item.stateSearch,
+            };
+            console.log(search);
+          }}
         />
         <Cities
           cities={this.state.cities}

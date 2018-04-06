@@ -1,10 +1,38 @@
-import React, { PureComponent } from 'react'
+import React, { Component } from 'react'
 import './Search.css';
 
-export default class Search extends PureComponent {
+export default class Search extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      citySearch: '',
+      stateSearch: {},
+    }
+    
+    this.handleChangeCity = this.handleChangeCity.bind(this);
+    this.handleChangeState = this.handleChangeState.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleChangeCity(event) {
+    this.setState({citySearch: event.target.value});
+  }
+  
+  handleChangeState(event) {
+    this.setState({stateSearch: event.target.value});
+  }
+
+
+
+  handleSubmit(event) {
+    event.preventDefault();
+    this.props.searchCities(this.state);
+  }
+
   render() {
     return (
       <form
+        onSubmit={this.handleSubmit}
         className="Search"
       >
         <div
@@ -19,7 +47,9 @@ export default class Search extends PureComponent {
           <input
             name="cidade"
             type="text"
-            placeholder="Pesquise por nome"
+            placeholder="Pesquise por cidade"
+            value={this.state.citySearch}
+	          onChange={this.handleChangeCity}
             required
             autofocus
           />
@@ -33,7 +63,10 @@ export default class Search extends PureComponent {
           >
             Estado:
           </label>
-          <select name="estado">
+          <select
+            name="estado"
+            onChange={this.handleChangeState}
+          >
             <option
               value=""
               selected>Selecione um estado
@@ -52,9 +85,7 @@ export default class Search extends PureComponent {
         <div
           className="Search-button"
         >
-          <button
-            type="submit"
-          >
+          <button>
           Buscar
           </button>
         </div>
